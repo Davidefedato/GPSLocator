@@ -1,4 +1,4 @@
-package com.example.fedatodavide.myapplication;
+package com.example.fedatodavide.myapplication.Logic;
 
 import android.Manifest;
 import android.content.Context;
