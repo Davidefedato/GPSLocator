@@ -15,4 +15,13 @@
         android:layout_alignParentEnd="true"
         android:textSize="30sp" />
 
+    <com.example.fedatodavide.myapplication.Logic.CanvasView
+        android:id="@+id/signature_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/position"
+        android:background="@drawable/ca2"
+        />
+
 </RelativeLayout>

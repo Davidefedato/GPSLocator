@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
+import com.example.fedatodavide.myapplication.Logic.CanvasView;
 import com.example.fedatodavide.myapplication.Logic.DrawTest;
 import com.example.fedatodavide.myapplication.Logic.MyLocation;
 
@@ -20,7 +22,8 @@ public class LocationFinder extends Activity {
 
     private MyLocation myLocation = new MyLocation();
     private TextView text;
-    private DrawTest drawTest;
+    //private DrawTest drawTest;
+    private CanvasView customCanvas;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,13 @@ public class LocationFinder extends Activity {
 
         boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
-        drawTest = new DrawTest(this);
+        customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
+        //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
+
+
+        /*drawTest = new DrawTest(this);
         drawTest.setBackgroundColor(Color.WHITE);
-        setContentView(drawTest);
+        setContentView(drawTest);*/
     }
 
     public MyLocation.LocationResult locationResult = new MyLocation.LocationResult() {
