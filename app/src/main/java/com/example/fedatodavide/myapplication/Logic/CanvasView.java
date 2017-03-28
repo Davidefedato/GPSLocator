@@ -53,7 +53,7 @@ public class CanvasView extends SurfaceView {
         mPaint.setStrokeWidth(4f);
     }
 
-    // override onSizeChanged
+   // override onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -68,11 +68,13 @@ public class CanvasView extends SurfaceView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // draw the mPath with the mPaint on the canvas when onDraw
-        //canvas.drawPath(mPath, mPaint); Canvas canvas = new Canvas();
+        canvas.drawPath(mPath, mPaint);
+        canvas = new Canvas();
+
 
 
     }
-    /*
+
     // when ACTION_DOWN start touch according to the x,y values
     private void startTouch(float x, float y) {
         mPath.moveTo(x, y);
@@ -122,9 +124,9 @@ public class CanvasView extends SurfaceView {
                 break;
         }
         return true;
-    }*/
+    }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("touch","premo ");
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -138,6 +140,6 @@ public class CanvasView extends SurfaceView {
             }
         }
         return false;
-    }
+    }*/
 
 }
