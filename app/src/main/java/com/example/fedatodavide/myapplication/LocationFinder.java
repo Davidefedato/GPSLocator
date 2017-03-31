@@ -33,13 +33,9 @@ public class LocationFinder extends Activity {
 
         boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
+        //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
-
-
-        /*drawTest = new DrawTest(this);
-        drawTest.setBackgroundColor(Color.WHITE);
-        setContentView(drawTest);*/
     }
 
     public MyLocation.LocationResult locationResult = new MyLocation.LocationResult() {
@@ -48,14 +44,44 @@ public class LocationFinder extends Activity {
         public void gotLocation(final String type, Location location) {
             final double Longitude = location.getLongitude();
             final double Latitude = location.getLatitude();
-
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     text.setText(type + ": Long: " + Longitude + " Lat: " + Latitude);
+                    //QUI dai la posizione al canvas -> customCanvas.drawPoint(posx, posy);
                 }
             });
         }
     };
+
+
+    //TEMP (serve per fare il test di canvas.draw())
+    /*private Thread t = new Thread(new Runnable() {
+        int c = 0;
+        @Override
+        public void run() {
+            while (true){
+                try {
+                    Thread.sleep(10);
+                    c += 1;
+                    drawOnCanvas(c, c);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+
+    //TEMP^
+    private void drawOnCanvas(final float posx, final float posy){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                customCanvas.drawPoint(posx, posy);
+            }
+        });
+    }*/
+    //FINE
 }
