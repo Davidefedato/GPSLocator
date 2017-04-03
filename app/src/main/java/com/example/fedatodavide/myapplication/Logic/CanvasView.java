@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 
 /**
  * Created by fedatodavide on 27/03/2017.
@@ -35,10 +36,21 @@ public class CanvasView extends SurfaceView {
     private float dx;
     private float dy;
 
+    public int altezza = 0;
+    public int larghezza = 0;
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        System.out.println("On size changed!");
+        System.out.println("Width: " + w + ", Height: " + h);
+        altezza = h;
+        larghezza = w;
+    }
+
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
         //context = c;
-
         //surfaceHolder = getHolder();
         paint.setColor(pointColor);
         paint.setStyle(Paint.Style.FILL);

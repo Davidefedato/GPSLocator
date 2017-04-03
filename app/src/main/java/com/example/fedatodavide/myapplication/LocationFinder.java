@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.fedatodavide.myapplication.Logic.CanvasView;
@@ -31,6 +32,9 @@ public class LocationFinder extends Activity {
         text = (TextView)findViewById(R.id.position);
         text.setText("Ciao Davide!!!");
 
+
+
+
         boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
         //TEMP Thread di prova t.start();
@@ -49,7 +53,20 @@ public class LocationFinder extends Activity {
                 @Override
                 public void run() {
                     text.setText(type + ": Long: " + Longitude + " Lat: " + Latitude);
-                    //QUI dai la posizione al canvas -> customCanvas.drawPoint(posx, posy);
+
+                    int width = customCanvas.larghezza;
+                    int height = customCanvas.altezza;
+
+                    System.out.println("WIDTH " + width);   //540
+                    System.out.println("HEIGHT " + height);   //886
+                    /*45.047199 12.144856 alto sx
+                    45.041041 12.150161 basso dx*/
+
+                    //int H;
+                    //int W;
+
+                    //QUI dai la posizione al canvas ->
+                    //customCanvas.drawPoint(posx, posy);
                 }
             });
         }
