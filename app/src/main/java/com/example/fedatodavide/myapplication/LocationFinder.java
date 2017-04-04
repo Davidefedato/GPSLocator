@@ -25,6 +25,8 @@ public class LocationFinder extends Activity {
     private TextView text;
     //private DrawTest drawTest;
     private CanvasView customCanvas;
+    float posx = 0;
+    float posy = 0;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class LocationFinder extends Activity {
 
         //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
+
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
     }
 
@@ -46,27 +49,40 @@ public class LocationFinder extends Activity {
 
         @Override
         public void gotLocation(final String type, Location location) {
-            final double Longitude = location.getLongitude();
-            final double Latitude = location.getLatitude();
+            final float Longitude = ((float) location.getLongitude());
+            final float Latitude = ((float) location.getLatitude());
+
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     text.setText(type + ": Long: " + Longitude + " Lat: " + Latitude);
 
-                    int width = customCanvas.larghezza;
-                    int height = customCanvas.altezza;
+                    int larghezza = customCanvas.larghezza;
+                    int altezza = customCanvas.altezza;
 
-                    System.out.println("WIDTH " + width);   //540
-                    System.out.println("HEIGHT " + height);   //886
+                    System.out.println("larghezza " + larghezza);   //540
+                    System.out.println("altezza " + altezza);   //886
                     /*45.047199 12.144856 alto sx
                     45.041041 12.150161 basso dx*/
 
-                    //int H;
-                    //int W;
+                    //45.044396 12.146119
+
+                    /*LONGITUDINE
+                      45.047199 : 0 = 45.041041 : 886
+                      lat : x  =  45.041041 : 886
+
+                      LATITUDINE
+                      long : x = 12.150161 : 540
+                      */
+
+
+                    posx = ((Longitude * (float)45.041041) / 886);
+                    posy = ((Latitude * (float)12.150161) / 540);
+
 
                     //QUI dai la posizione al canvas ->
-                    //customCanvas.drawPoint(posx, posy);
+                    customCanvas.drawPoint(posx, posy);
                 }
             });
         }
