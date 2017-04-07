@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fedatodavide.myapplication.Logic.CanvasView;
 import com.example.fedatodavide.myapplication.Logic.DrawTest;
@@ -25,8 +26,8 @@ public class LocationFinder extends Activity {
     private TextView text;
     //private DrawTest drawTest;
     private CanvasView customCanvas;
-    float posx = 0;
-    float posy = 0;
+    float PercentualeX = 0;
+    float PercentualeY = 0;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,20 +50,27 @@ public class LocationFinder extends Activity {
 
         @Override
         public void gotLocation(final String type, Location location) {
-            final float Longitude = ((float) location.getLongitude());
-            final float Latitude = ((float) location.getLatitude());
+            final float Longitude = ((float) location.getLatitude ());
+            final float Latitude = ((float) location.getLongitude ());
 
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    text.setText(type + ": Long: " + Longitude + " Lat: " + Latitude);
-
                     int larghezza = customCanvas.larghezza;
                     int altezza = customCanvas.altezza;
 
+                    String debug = "";
+
+                    debug += "Canvas: "+ larghezza + ", " + altezza + "\n";
+
                     System.out.println("larghezza " + larghezza);   //540
                     System.out.println("altezza " + altezza);   //886
+
+                    //Scuola
+                    //Start: 45.770759 12.046336
+                    //End: 45.777010 12.046532
+
                     /*45.047199 12.144856 alto sx
                     45.041041 12.150161 basso dx*/
 
@@ -76,13 +84,29 @@ public class LocationFinder extends Activity {
                       long : x = 12.150161 : 540
                       */
 
+                    /*
+                    posx = ((Longitude * (float)45.041041) / 100);
+                    posy = ((Latitude * (float)12.150161) / 100);
+                    */
 
-                    posx = ((Longitude * (float)45.041041) / 886);
-                    posy = ((Latitude * (float)12.150161) / 540);
+                    debug += "Posizione: " + Longitude + ", " + Latitude + "\n";
+                    debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
+                    debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
 
+                    PercentualeX = (float)(Longitude - 45.770759 * 100 / (45.777010 - 45.770759));
+                    PercentualeY = (float)((Latitude - 12.046336) * 100 / (12.046532 - 12.046336));
 
+                    debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
+
+                    float toCanvasX = (PercentualeX * larghezza) / 100;
+                    float toCanvasY = (PercentualeY * altezza) / 100;
+
+                    debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
+
+                    Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
+                    text.setText(debug);
                     //QUI dai la posizione al canvas ->
-                    customCanvas.drawPoint(posx, posy);
+                    customCanvas.drawPoint(toCanvasX, toCanvasY);
                 }
             });
         }
