@@ -36,12 +36,12 @@ public class MyLocation {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception ex) {
         }
-        /*try {
+        try {
             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         } catch (Exception ex) {
-        }*/
+        }
 
-        if (!gps_enabled /*&& !network_enabled*/)
+        if (!gps_enabled && !network_enabled)
             return false;
 
         if (gps_enabled) {
@@ -51,8 +51,8 @@ public class MyLocation {
         }
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000/aggiornamentiPerSecondo, 0, locationListenerGps);
 
-        /*if (network_enabled)
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000/aggiornamentiPerSecondo, 0, locationListenerNetwork);*/
+        if (network_enabled)
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000/aggiornamentiPerSecondo, 0, locationListenerNetwork);
 
         return true;
     }
@@ -63,8 +63,8 @@ public class MyLocation {
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            //lm.removeUpdates(this);
-            //lm.removeUpdates(locationListenerNetwork);
+            lm.removeUpdates(this);
+            lm.removeUpdates(locationListenerNetwork);
         }
 
         public void onProviderDisabled(String provider) {
@@ -77,7 +77,7 @@ public class MyLocation {
         }
     };
 
-    /*LocationListener locationListenerNetwork = new LocationListener() {
+    LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
             locationResult.gotLocation("INTERNET", location);
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -95,7 +95,7 @@ public class MyLocation {
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-    };*/
+    };
 
     class GetLastLocation extends TimerTask {
         @Override

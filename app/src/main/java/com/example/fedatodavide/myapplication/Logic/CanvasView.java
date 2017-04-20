@@ -31,7 +31,7 @@ public class CanvasView extends SurfaceView {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     //D
-    private final int POINT_RADIUS = 20;
+    private final int POINT_RADIUS = 5;
     private int pointColor = Color.RED;
     private float dx;
     private float dy;

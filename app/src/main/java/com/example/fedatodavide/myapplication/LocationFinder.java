@@ -29,6 +29,13 @@ public class LocationFinder extends Activity {
     float PercentualeX = 0;
     float PercentualeY = 0;
 
+
+    //Dati sulla mappa
+    private double mapXMin = 12.045191;
+    private double mapXMax = 12.047382;
+    private double mapYMin = 45.771859;
+    private double mapYMax = 45.77048;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_finder);
@@ -43,16 +50,95 @@ public class LocationFinder extends Activity {
         //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
+
+        /*Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                calcolaPosizione(45.775759, 12.046436);
+                //setPosition(45.777010, 12.046532);
+            }
+        });
+        t.start();*/
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
+    }
+
+    private void calcolaPosizione(final double x, final double y){
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int larghezza = customCanvas.larghezza;
+                int altezza = customCanvas.altezza;
+
+                String debug = "";
+
+                debug += "Canvas: "+ larghezza + ", " + altezza + "\n";
+
+                System.out.println("larghezza " + larghezza);   //540
+                System.out.println("altezza " + altezza);   //886
+
+                //Scuola
+                //Start: 45.770759 12.046336
+                //End: 45.777010 12.046532
+
+                    /*45.047199 12.144856 alto sx
+                    45.041041 12.150161 basso dx*/
+
+                //45.044396 12.146119
+
+                /*LONGITUDINE
+                  45.047199 : 0 = 45.041041 : 886
+                  lat : x  =  45.041041 : 886
+
+                  LATITUDINE
+                  long : x = 12.150161 : 540
+                  */
+                /*
+                double posx = ((x * (float)45.041041) / 100);
+                double posy = ((y * (float)12.150161) / 100);
+                */
+
+                debug += "Posizione: " + x + ", " + y + "\n";
+                //debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
+                //debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
+                double deltaMapX = Math.abs(mapXMax - mapXMin);
+                double deltaMapY = Math.abs(mapYMax - mapYMin);
+
+                debug += "DeltaMap: " + deltaMapX + ", " + deltaMapY + "\n";
+                PercentualeX = (float) Math.abs((x - mapXMin) * 100 / deltaMapX);
+                PercentualeY = (float) Math.abs((y - mapYMin) * 100 / deltaMapY);
+
+                debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
+
+                float toCanvasX = (PercentualeX * larghezza) / 100;
+                float toCanvasY = (PercentualeY * altezza) / 100;
+
+                debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
+
+                Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
+                text.setText(debug);
+                //QUI dai la posizione al canvas ->
+                customCanvas.drawPoint(toCanvasX, toCanvasY);
+            }
+        });
     }
 
     public MyLocation.LocationResult locationResult = new MyLocation.LocationResult() {
 
         @Override
         public void gotLocation(final String type, Location location) {
-            final float Longitude = ((float) location.getLatitude ());
-            final float Latitude = ((float) location.getLongitude ());
+            final float Longitude = ((float) location.getLongitude ());
+            final float Latitude = ((float) location.getLatitude ());
 
+            calcolaPosizione(Longitude , Latitude);
+
+            return;
+            /*
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
             runOnUiThread(new Runnable() {
                 @Override
@@ -66,15 +152,16 @@ public class LocationFinder extends Activity {
 
                     System.out.println("larghezza " + larghezza);   //540
                     System.out.println("altezza " + altezza);   //886
+                    */
 
-                    //Scuola
-                    //Start: 45.770759 12.046336
-                    //End: 45.777010 12.046532
+            //Scuola
+            //Start: 45.770759 12.046336
+            //End: 45.777010 12.046532
 
                     /*45.047199 12.144856 alto sx
                     45.041041 12.150161 basso dx*/
 
-                    //45.044396 12.146119
+            //45.044396 12.146119
 
                     /*LONGITUDINE
                       45.047199 : 0 = 45.041041 : 886
@@ -89,6 +176,7 @@ public class LocationFinder extends Activity {
                     posy = ((Latitude * (float)12.150161) / 100);
                     */
 
+            /*
                     debug += "Posizione: " + Longitude + ", " + Latitude + "\n";
                     debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
                     debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
@@ -109,6 +197,7 @@ public class LocationFinder extends Activity {
                     customCanvas.drawPoint(toCanvasX, toCanvasY);
                 }
             });
+            */
         }
     };
 
