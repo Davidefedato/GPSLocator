@@ -3,24 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/position"
+        android:text="New Button"
+        android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="20sp" />
+        android:layout_alignParentStart="true" />
 
-    <com.example.fedatodavide.myapplication.Logic.CanvasView
+    <com.example.fedatodavide.myapplication.LogicGPSLocator.CanvasView
         android:id="@+id/signature_canvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="#FFFFFF"
         android:background="@drawable/scuola"
-        android:layout_below="@+id/position" />
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
 
 </RelativeLayout>

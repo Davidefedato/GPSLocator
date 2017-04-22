@@ -1,4 +1,4 @@
-package com.example.fedatodavide.myapplication.Logic;
+package com.example.fedatodavide.myapplication.LogicGPSLocator;
 
 import android.Manifest;
 import android.content.Context;

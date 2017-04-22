@@ -1,14 +1,11 @@
-package com.example.fedatodavide.myapplication.Logic;
+package com.example.fedatodavide.myapplication.LogicGPSLocator;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.provider.Settings;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
 
 /**
  * Created by fedatodavide on 27/03/2017.

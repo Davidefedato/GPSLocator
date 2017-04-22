@@ -5,17 +5,13 @@ package com.example.fedatodavide.myapplication;
  */
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fedatodavide.myapplication.Logic.CanvasView;
-import com.example.fedatodavide.myapplication.Logic.DrawTest;
-import com.example.fedatodavide.myapplication.Logic.MyLocation;
+import com.example.fedatodavide.myapplication.LogicGPSLocator.CanvasView;
+import com.example.fedatodavide.myapplication.LogicGPSLocator.MyLocation;
 
 /**
  * Created by fedatodavide on 24/03/2017.

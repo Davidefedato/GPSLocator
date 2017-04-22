@@ -1,4 +1,4 @@
-package com.example.fedatodavide.myapplication.Logic;
+package com.example.fedatodavide.myapplication.LogicGPSLocator;
 
 import android.content.Context;
 import android.graphics.Canvas;
