@@ -27,7 +27,7 @@ public class DrawTest extends View {
         canvas.drawRect(33, 60, 77, 77, paint );
         paint.setColor(Color.YELLOW);
         canvas.drawRect(33, 33, 77, 60, paint );
-
+//ciao
     }
 
 }
