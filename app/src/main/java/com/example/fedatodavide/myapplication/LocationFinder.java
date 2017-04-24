@@ -5,8 +5,11 @@ package com.example.fedatodavide.myapplication;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,9 @@ public class LocationFinder extends Activity {
     float PercentualeX = 0;
     float PercentualeY = 0;
 
+    Button Inizio;
+    Button Fine;
+
 
     //Dati sulla mappa
     private double mapXMin = 12.045191;
@@ -35,13 +41,10 @@ public class LocationFinder extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_finder);
-        text = (TextView)findViewById(R.id.position);
-        text.setText("Ciao Davide!!!");
-
-
-
-
-        boolean r = myLocation.startListening(getApplicationContext(), locationResult);
+        //text = (TextView)findViewById(R.id.position);
+        //text.setText("Ciao Davide!!!");
+        Inizio = (Button) findViewById(R.id.btnInizio);
+        Fine = (Button) findViewById(R.id.btnFine);
 
         //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
@@ -61,6 +64,25 @@ public class LocationFinder extends Activity {
         });
         t.start();*/
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
+
+        boolean r = myLocation.startListening(getApplicationContext(), locationResult);
+
+        Inizio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //System.out.println("Iniziato: " + r);
+            }
+        });
+
+
+        Fine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void calcolaPosizione(final double x, final double y){
@@ -99,22 +121,22 @@ public class LocationFinder extends Activity {
                 double posy = ((y * (float)12.150161) / 100);
                 */
 
-                debug += "Posizione: " + x + ", " + y + "\n";
+                //debug += "Posizione: " + x + ", " + y + "\n";
                 //debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
                 //debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
                 double deltaMapX = Math.abs(mapXMax - mapXMin);
                 double deltaMapY = Math.abs(mapYMax - mapYMin);
 
-                debug += "DeltaMap: " + deltaMapX + ", " + deltaMapY + "\n";
+                //debug += "DeltaMap: " + deltaMapX + ", " + deltaMapY + "\n";
                 PercentualeX = (float) Math.abs((x - mapXMin) * 100 / deltaMapX);
                 PercentualeY = (float) Math.abs((y - mapYMin) * 100 / deltaMapY);
 
-                debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
+                //debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
 
                 float toCanvasX = (PercentualeX * larghezza) / 100;
                 float toCanvasY = (PercentualeY * altezza) / 100;
 
-                debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
+                //debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
 
                 Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
                 text.setText(debug);
@@ -130,6 +152,7 @@ public class LocationFinder extends Activity {
         public void gotLocation(final String type, Location location) {
             final float Longitude = ((float) location.getLongitude ());
             final float Latitude = ((float) location.getLatitude ());
+            System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
 
             calcolaPosizione(Longitude , Latitude);
 
@@ -196,6 +219,7 @@ public class LocationFinder extends Activity {
             */
         }
     };
+
 
 
     //TEMP (serve per fare il test di canvas.draw())

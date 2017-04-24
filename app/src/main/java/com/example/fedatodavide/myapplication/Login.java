@@ -1,6 +1,7 @@
 package com.example.fedatodavide.myapplication;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +50,7 @@ public class Login extends AppCompatActivity {
                     public void onMessageRead(final String message) {
 
                         System.out.println("Ricevo: " + message);
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -61,6 +63,7 @@ public class Login extends AppCompatActivity {
                                 else {
                                     id = Integer.parseInt(message.toString());
                                     User.id = id;
+                                    System.out.println("USER ID : " + User.id);
                                     Toast.makeText(getApplicationContext(),"Registrazione avvenuta con successo", Toast.LENGTH_LONG).show();
                                     //fai partire un'activity
                                     Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);

@@ -73,7 +73,7 @@ public class RaccoltaDati extends AppCompatActivity {
         db = gdh.getReadableDatabase();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raccolta_dati);
-        bottone = (Button) findViewById(R.id.caricaDB);
+        bottone = (Button) findViewById(R.id.salvaDati);
 
 
         categoria = (Spinner) findViewById(R.id.categoria);
