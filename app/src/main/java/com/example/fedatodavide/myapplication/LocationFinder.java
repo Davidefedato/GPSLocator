@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fedatodavide.myapplication.LogicDatabase.User;
 import com.example.fedatodavide.myapplication.LogicGPSLocator.CanvasView;
 import com.example.fedatodavide.myapplication.LogicGPSLocator.MyLocation;
 
@@ -37,6 +38,7 @@ public class LocationFinder extends Activity {
     private double mapXMax = 12.047382;
     private double mapYMin = 45.771859;
     private double mapYMax = 45.77048;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,7 @@ public class LocationFinder extends Activity {
         t.start();*/
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
 
-        boolean r = myLocation.startListening(getApplicationContext(), locationResult);
+        final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
         Inizio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +81,11 @@ public class LocationFinder extends Activity {
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
+                Intent intent = new Intent(getApplicationContext(),ResoContoDati.class);
                 startActivity(intent);
             }
         });
+
     }
 
     private void calcolaPosizione(final double x, final double y){
@@ -139,7 +142,7 @@ public class LocationFinder extends Activity {
                 //debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
 
                 Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
-                text.setText(debug);
+//                text.setText(debug);
                 //QUI dai la posizione al canvas ->
                 customCanvas.drawPoint(toCanvasX, toCanvasY);
             }

@@ -12,11 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fedatodavide.myapplication.LogicDatabase.DatabaseHelper;
-import com.example.fedatodavide.myapplication.LogicDatabase.OnClientMessageRead;
-import com.example.fedatodavide.myapplication.LogicDatabase.ReadURL;
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
 
 import java.util.ArrayList;
@@ -274,5 +271,14 @@ public class RaccoltaDati extends AppCompatActivity {
         super.onBackPressed();
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);
+    }
+
+    public static class ResoContoDati extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_reso_conto_dati);
+        }
     }
 }

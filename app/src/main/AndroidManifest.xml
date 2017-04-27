@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RaccoltaDati" />
-        <activity android:name=".LocationFinder"></activity>
+        <activity android:name=".LocationFinder" />
+        <activity android:name=".RaccoltaDati$ResoContoDati" />
+        <activity android:name=".ResoContoDati"></activity>
     </application>
 
 </manifest>
