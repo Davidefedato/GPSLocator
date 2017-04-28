@@ -3,6 +3,7 @@ package com.example.fedatodavide.myapplication.LogicGPSLocator;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -49,10 +50,10 @@ public class MyLocation {
                 return false;
             }
         }
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000/aggiornamentiPerSecondo, 0, locationListenerGps);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000 / aggiornamentiPerSecondo, 0, locationListenerGps);
 
         if (network_enabled)
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000/aggiornamentiPerSecondo, 0, locationListenerNetwork);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000 / aggiornamentiPerSecondo, 0, locationListenerNetwork);
 
         return true;
     }
@@ -105,24 +106,25 @@ public class MyLocation {
             if (gps_enabled)
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
-                }gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(network_enabled)
-                net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                }
+            gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (network_enabled)
+                net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
             //if there are both values use the latest one
-            if(gps_loc!=null && net_loc!=null){
-                if(gps_loc.getTime()>net_loc.getTime())
+            if (gps_loc != null && net_loc != null) {
+                if (gps_loc.getTime() > net_loc.getTime())
                     locationResult.gotLocation("GPS", gps_loc);
                 else
                     locationResult.gotLocation("INTERNET", net_loc);
                 return;
             }
 
-            if(gps_loc!=null){
+            if (gps_loc != null) {
                 locationResult.gotLocation("GPS", gps_loc);
                 return;
             }
-            if(net_loc!=null){
+            if (net_loc != null) {
                 locationResult.gotLocation("INTERNET", net_loc);
                 return;
             }
@@ -130,7 +132,22 @@ public class MyLocation {
         }
     }
 
-    public static abstract class LocationResult{
+    public static abstract class LocationResult {
         public abstract void gotLocation(String type, Location location);
+    }
+
+    public void stopListening() {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        lm.removeUpdates(locationListenerNetwork);
+        lm.removeUpdates(locationListenerGps);
     }
 }

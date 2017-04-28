@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class LocationFinder extends Activity {
 
     Button Inizio;
     Button Fine;
+    Chronometer cronometro;
 
 
     //Dati sulla mappa
@@ -67,13 +70,28 @@ public class LocationFinder extends Activity {
         t.start();*/
         //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
 
-        final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
+        //final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
         Inizio.setOnClickListener(new View.OnClickListener() {
+            int secondi = 0;
             @Override
             public void onClick(View v) {
+                final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
+                cronometro.start();
+                /*Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (true){
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            secondi++;
+                        }
+                    }
+                });*/
 
-                //System.out.println("Iniziato: " + r);
             }
         });
 
@@ -81,8 +99,13 @@ public class LocationFinder extends Activity {
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cronometro.stop();
+                System.out.println("Tempo: " + cronometro.getText());
+                myLocation.stopListening();
                 Intent intent = new Intent(getApplicationContext(),ResoContoDati.class);
                 startActivity(intent);
+
+
             }
         });
 
@@ -158,6 +181,7 @@ public class LocationFinder extends Activity {
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
 
             calcolaPosizione(Longitude , Latitude);
+
 
             return;
             /*
