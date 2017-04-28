@@ -41,7 +41,7 @@ public class LocationFinder extends Activity {
     private double mapXMax = 12.047382;
     private double mapYMin = 45.771859;
     private double mapYMax = 45.77048;
-
+    //prova
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
