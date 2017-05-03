@@ -11,5 +11,5 @@ public class User {
     public static String password;
     public static String moto;
     public static String circuito;
-    public ArrayList<String> tempi = new ArrayList<String>();
+    public static ArrayList<String> tempi = new ArrayList<String>();
 }

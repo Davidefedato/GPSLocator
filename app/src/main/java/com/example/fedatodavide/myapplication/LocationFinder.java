@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -30,10 +31,15 @@ public class LocationFinder extends Activity {
     private CanvasView customCanvas;
     float PercentualeX = 0;
     float PercentualeY = 0;
-
+    private int millisecondi = 0;
+    private int secondi = 0;
+    private int minuti = 0;
     Button Inizio;
+    Button FineGiro;
     Button Fine;
     Chronometer cronometro;
+    Thread t;
+    String tempo = "";
 
 
     //Dati sulla mappa
@@ -49,6 +55,7 @@ public class LocationFinder extends Activity {
         //text = (TextView)findViewById(R.id.position);
         //text.setText("Ciao Davide!!!");
         Inizio = (Button) findViewById(R.id.btnInizio);
+        FineGiro = (Button) findViewById(R.id.btnFineGiro);
         Fine = (Button) findViewById(R.id.btnFine);
 
         //TEMP Thread di prova t.start();
@@ -74,44 +81,78 @@ public class LocationFinder extends Activity {
 
         Inizio.setOnClickListener(new View.OnClickListener() {
             int secondi = 0;
+
             @Override
             public void onClick(View v) {
+
+                millisecondi = 0;
+                minuti = 0;
+                secondi = 0;
+
                 final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
-                cronometro.start();
-                /*Thread t = new Thread(new Runnable() {
+                t = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while (true){
+                        while (true) {
                             try {
                                 Thread.sleep(1);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            secondi++;
+                            millisecondi++;
                         }
                     }
-                });*/
-
+                });
+                t.start();
             }
         });
 
 
+        FineGiro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*myLocation.stopListening();
+                t.stop();*/
+
+                while (millisecondi > 1000) {
+                    secondi++;
+                    millisecondi = millisecondi - 1000;
+
+                    while (secondi > 60) {
+                        minuti++;
+                        secondi = secondi - 60;
+                    }
+                }
+
+
+                tempo = minuti + " : " + secondi + " : " + millisecondi;
+                User.tempi.add(tempo);
+
+                Log.i("Tempo", tempo);
+
+                millisecondi = 0;
+                minuti = 0;
+                secondi = 0;
+                /*Intent intent = new Intent(getApplicationContext(),ResoContoDati.class);
+                startActivity(intent);*/
+
+
+            }
+        });
+
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cronometro.stop();
-                System.out.println("Tempo: " + cronometro.getText());
                 myLocation.stopListening();
-                Intent intent = new Intent(getApplicationContext(),ResoContoDati.class);
+                t.interrupt();
+                Intent intent = new Intent(getApplicationContext(), ResoContoDati.class);
                 startActivity(intent);
-
-
             }
         });
 
     }
 
-    private void calcolaPosizione(final double x, final double y){
+    private void calcolaPosizione(final double x, final double y) {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -121,7 +162,7 @@ public class LocationFinder extends Activity {
 
                 String debug = "";
 
-                debug += "Canvas: "+ larghezza + ", " + altezza + "\n";
+                debug += "Canvas: " + larghezza + ", " + altezza + "\n";
 
                 System.out.println("larghezza " + larghezza);   //540
                 System.out.println("altezza " + altezza);   //886
@@ -176,11 +217,11 @@ public class LocationFinder extends Activity {
 
         @Override
         public void gotLocation(final String type, Location location) {
-            final float Longitude = ((float) location.getLongitude ());
-            final float Latitude = ((float) location.getLatitude ());
+            final float Longitude = ((float) location.getLongitude());
+            final float Latitude = ((float) location.getLatitude());
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
 
-            calcolaPosizione(Longitude , Latitude);
+            calcolaPosizione(Longitude, Latitude);
 
 
             return;
@@ -246,7 +287,6 @@ public class LocationFinder extends Activity {
             */
         }
     };
-
 
 
     //TEMP (serve per fare il test di canvas.draw())
