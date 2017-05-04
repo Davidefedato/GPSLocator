@@ -65,6 +65,7 @@ public class Login extends AppCompatActivity {
                                     User.id = id;
                                     System.out.println("USER ID : " + User.id);
                                     Toast.makeText(getApplicationContext(),"Registrazione avvenuta con successo", Toast.LENGTH_LONG).show();
+                                    User.username = u;
                                     //fai partire un'activity
                                     Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
                                     startActivity(intent);
@@ -104,6 +105,7 @@ public class Login extends AppCompatActivity {
                                     id = Integer.parseInt(message.toString());
                                     User.id = id;
                                     Toast.makeText(getApplicationContext(),"Log in avvenuto con successo", Toast.LENGTH_LONG).show();
+                                    User.username = u;
                                     //fai partire un'activity
                                     Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
                                     startActivity(intent);

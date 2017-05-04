@@ -11,8 +11,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/icona"
+        android:label="Bike Locator"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login">
@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".RaccoltaDati" />
         <activity android:name=".LocationFinder" />
-        <activity android:name=".RaccoltaDati$ResoContoDati" />
+        <!--<activity android:name=".RaccoltaDati$ResoContoDati" />-->
         <activity android:name=".ResoContoDati"></activity>
     </application>
 
