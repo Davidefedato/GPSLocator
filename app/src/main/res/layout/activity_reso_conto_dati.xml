@@ -7,7 +7,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RaccoltaDati$ResoContoDati">
+    tools:context=".RaccoltaDati$ResoContoDati"
+    android:background="@drawable/sfondo">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/listViewTempi"
+        android:layout_alignEnd="@+id/listViewTempi"
+        android:textColor="#ffffff"
+        android:text=" " />
 
     <ListView
         android:layout_width="match_parent"
@@ -36,13 +49,4 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/listViewTempi"
-        android:layout_alignEnd="@+id/listViewTempi" />
 </RelativeLayout>
