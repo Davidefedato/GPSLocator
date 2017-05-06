@@ -23,14 +23,17 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:foreground="#00ffffff" />
 
     <Spinner android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moto"
         android:nestedScrollingEnabled="false"
         android:layout_below="@+id/categoria"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusableInTouchMode="false"
+        android:foreground="#00ffffff" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -38,7 +41,8 @@
         android:id="@+id/nazione"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:foreground="#00ffffff" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -46,7 +50,8 @@
         android:id="@+id/circuito"
         android:layout_below="@+id/nazione"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:foreground="#00ffffff" />
 
     <TextView
         android:layout_width="wrap_content"

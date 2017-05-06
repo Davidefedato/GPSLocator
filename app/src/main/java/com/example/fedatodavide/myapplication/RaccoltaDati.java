@@ -1,5 +1,6 @@
 package com.example.fedatodavide.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -87,6 +88,8 @@ public class RaccoltaDati extends AppCompatActivity {
 
         spinnerAdapter2 = new ArrayAdapter<String>(this, R.layout.row);
         spinnerAdapter3 = new ArrayAdapter<String>(this, R.layout.row);
+
+
 
         categoria.setAdapter(spinnerAdapter);
         moto.setAdapter(spinnerAdapter1);
@@ -228,50 +231,21 @@ public class RaccoltaDati extends AppCompatActivity {
                 int id = User.id;
                 User.circuito = circuitoQuery;
                 User.moto = motoQuery;
-                System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
-                Intent i = new Intent(getApplicationContext(), LocationFinder.class);
-                startActivity(i);
+                //if (!User.circuito.equalsIgnoreCase("--Scegli--") && !User.moto.equalsIgnoreCase("--Scegli--")){
+                if (User.circuito !=null && User.moto != null){
+                    System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
+                    Intent i = new Intent(getApplicationContext(), LocationFinder.class);
+                    startActivity(i);
+                }
+                else {
+
+                }
+
             }
         });
 
-        //BOTTONE PER CARICARE I DATI
-        /*bottone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int id = User.id;
-                System.out.println("ID: " + id);
-                tempo = "1:03:40";
-                //GENERA LA QUERY PER INSERIRE I DATI NEL DATABASE
-                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/caricaDBprova.php?idMotociclista=" + id + "&tempo=" + tempo + "&moto=" + motoQuery + "&circuito=" + circuitoQuery);
-                readURL.onClientMessageRead = new OnClientMessageRead() {
-                    @Override
-                    public void onMessageRead(final String message) {
-                        System.out.println("Ricevo: " + message);
-                        //CONTROLLA SE IL CARICAMENTO E' AVVENUTO CON SUCCESSO O MENO
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (message.equalsIgnoreCase("Caricamento fallito")) {
-                                    Toast.makeText(getApplicationContext(), "Caricamento fallito", Toast.LENGTH_LONG).show();
-
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
-                                    bottone.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                        });
-                    }
-                };
-                readURL.start();
-            }
-        });*/
-
     }
-    public void onBackPressed(){
-        super.onBackPressed();
-        Intent i = new Intent(getApplicationContext(), Login.class);
-        startActivity(i);
-    }
+
 
     public static class ResoContoDati extends AppCompatActivity {
 
