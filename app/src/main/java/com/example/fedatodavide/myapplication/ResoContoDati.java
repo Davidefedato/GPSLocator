@@ -84,4 +84,10 @@ public class ResoContoDati extends AppCompatActivity {
             }
         });
     }
+
+    public void onBackPressed(){
+        Intent i = new Intent(getApplicationContext(), Login.class);
+        //sistemare l'indirizzo dell'oggetto da eliminare perchè anche quando torno indietro mantiene l'indirizzo in memoria e svuotare l'array dei tempi
+        startActivity(i);
+    }
 }

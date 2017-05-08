@@ -245,6 +245,10 @@ public class RaccoltaDati extends AppCompatActivity {
         });
 
     }
+    public void onBackPressed(){
+        Intent i = new Intent(getApplicationContext(), Login.class);
+        startActivity(i);
+    }
 
 
     public static class ResoContoDati extends AppCompatActivity {

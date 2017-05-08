@@ -119,15 +119,4 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    public void onBackPressed(){
-        i++;
-        System.out.println("I : " + i);
-        if(i%2==0){
-            return;
-        }
-        else {
-            i=0;
-            System.exit(0);
-        }
-    }
 }

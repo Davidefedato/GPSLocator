@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/listViewTempi"
         android:layout_alignEnd="@+id/listViewTempi"
-        android:textColor="#ffffff"
+        android:textColor="#000"
         android:text=" " />
 
     <ListView

@@ -40,6 +40,8 @@ public class LocationFinder extends Activity {
     Chronometer cronometro;
     Thread t;
     String tempo = "";
+    private int iniziato;
+    private int giro;
 
 
     //Dati sulla mappa
@@ -52,32 +54,12 @@ public class LocationFinder extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_finder);
-        //text = (TextView)findViewById(R.id.position);
-        //text.setText("Ciao Davide!!!");
         Inizio = (Button) findViewById(R.id.btnInizio);
         FineGiro = (Button) findViewById(R.id.btnFineGiro);
         Fine = (Button) findViewById(R.id.btnFine);
-
+        iniziato = 0;
         //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
-
-
-        /*Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                calcolaPosizione(45.775759, 12.046436);
-                //setPosition(45.777010, 12.046532);
-            }
-        });
-        t.start();*/
-        //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
-
-        //final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
 
         Inizio.setOnClickListener(new View.OnClickListener() {
             int secondi = 0;
@@ -88,7 +70,7 @@ public class LocationFinder extends Activity {
                 millisecondi = 0;
                 minuti = 0;
                 secondi = 0;
-
+                iniziato = 1;
                 final boolean r = myLocation.startListening(getApplicationContext(), locationResult);
                 t = new Thread(new Runnable() {
                     @Override
@@ -111,8 +93,7 @@ public class LocationFinder extends Activity {
         FineGiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*myLocation.stopListening();
-                t.stop();*/
+                giro++;
 
                 while (millisecondi > 1000) {
                     secondi++;
@@ -133,8 +114,6 @@ public class LocationFinder extends Activity {
                 millisecondi = 0;
                 minuti = 0;
                 secondi = 0;
-                /*Intent intent = new Intent(getApplicationContext(),ResoContoDati.class);
-                startActivity(intent);*/
 
 
             }
@@ -143,10 +122,12 @@ public class LocationFinder extends Activity {
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myLocation.stopListening();
-                t.interrupt();
-                Intent intent = new Intent(getApplicationContext(), ResoContoDati.class);
-                startActivity(intent);
+                if (iniziato == 1 && giro!= 0){
+                    myLocation.stopListening();
+                    t.interrupt();
+                    Intent intent = new Intent(getApplicationContext(), ResoContoDati.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -167,26 +148,6 @@ public class LocationFinder extends Activity {
                 System.out.println("larghezza " + larghezza);   //540
                 System.out.println("altezza " + altezza);   //886
 
-                //Scuola
-                //Start: 45.770759 12.046336
-                //End: 45.777010 12.046532
-
-                    /*45.047199 12.144856 alto sx
-                    45.041041 12.150161 basso dx*/
-
-                //45.044396 12.146119
-
-                /*LONGITUDINE
-                  45.047199 : 0 = 45.041041 : 886
-                  lat : x  =  45.041041 : 886
-
-                  LATITUDINE
-                  long : x = 12.150161 : 540
-                  */
-                /*
-                double posx = ((x * (float)45.041041) / 100);
-                double posy = ((y * (float)12.150161) / 100);
-                */
 
                 //debug += "Posizione: " + x + ", " + y + "\n";
                 //debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
@@ -205,7 +166,7 @@ public class LocationFinder extends Activity {
 
                 //debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
 
-                Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
 //                text.setText(debug);
                 //QUI dai la posizione al canvas ->
                 customCanvas.drawPoint(toCanvasX, toCanvasY);
@@ -220,101 +181,13 @@ public class LocationFinder extends Activity {
             final float Longitude = ((float) location.getLongitude());
             final float Latitude = ((float) location.getLatitude());
             System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
-
             calcolaPosizione(Longitude, Latitude);
-
-
             return;
-            /*
-            System.out.println(type + ": Long: " + Longitude + " Lat: " + Latitude);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    int larghezza = customCanvas.larghezza;
-                    int altezza = customCanvas.altezza;
-
-                    String debug = "";
-
-                    debug += "Canvas: "+ larghezza + ", " + altezza + "\n";
-
-                    System.out.println("larghezza " + larghezza);   //540
-                    System.out.println("altezza " + altezza);   //886
-                    */
-
-            //Scuola
-            //Start: 45.770759 12.046336
-            //End: 45.777010 12.046532
-
-                    /*45.047199 12.144856 alto sx
-                    45.041041 12.150161 basso dx*/
-
-            //45.044396 12.146119
-
-                    /*LONGITUDINE
-                      45.047199 : 0 = 45.041041 : 886
-                      lat : x  =  45.041041 : 886
-
-                      LATITUDINE
-                      long : x = 12.150161 : 540
-                      */
-
-                    /*
-                    posx = ((Longitude * (float)45.041041) / 100);
-                    posy = ((Latitude * (float)12.150161) / 100);
-                    */
-
-            /*
-                    debug += "Posizione: " + Longitude + ", " + Latitude + "\n";
-                    debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
-                    debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
-
-                    PercentualeX = (float)(Longitude - 45.770759 * 100 / (45.777010 - 45.770759));
-                    PercentualeY = (float)((Latitude - 12.046336) * 100 / (12.046532 - 12.046336));
-
-                    debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
-
-                    float toCanvasX = (PercentualeX * larghezza) / 100;
-                    float toCanvasY = (PercentualeY * altezza) / 100;
-
-                    debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
-
-                    Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
-                    text.setText(debug);
-                    //QUI dai la posizione al canvas ->
-                    customCanvas.drawPoint(toCanvasX, toCanvasY);
-                }
-            });
-            */
         }
     };
 
-
-    //TEMP (serve per fare il test di canvas.draw())
-    /*private Thread t = new Thread(new Runnable() {
-        int c = 0;
-        @Override
-        public void run() {
-            while (true){
-                try {
-                    Thread.sleep(10);
-                    c += 1;
-                    drawOnCanvas(c, c);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-    //TEMP^
-    private void drawOnCanvas(final float posx, final float posy){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                customCanvas.drawPoint(posx, posy);
-            }
-        });
-    }*/
-    //FINE
+    public void onBackPressed(){
+        Intent i = new Intent(getApplicationContext(), Login.class);
+        startActivity(i);
+    }
 }
