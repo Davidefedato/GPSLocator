@@ -10,8 +10,6 @@
         android:layout_height="match_parent"
         android:textColor="#FFFFFF"
         android:background="@drawable/scuola"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
         android:layout_above="@+id/btnInizio"
         android:textAlignment="center" />
 
@@ -22,7 +20,8 @@
         android:id="@+id/btnInizio"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,7 +29,8 @@
         android:text="Fine giro"
         android:id="@+id/btnFineGiro"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,6 +39,7 @@
         android:id="@+id/btnFine"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button" />
 
 </RelativeLayout>

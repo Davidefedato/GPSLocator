@@ -16,7 +16,8 @@
         android:id="@+id/salvaDati"
         android:layout_marginBottom="44dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button" />
 
     <Spinner android:layout_height="wrap_content"
         android:id="@+id/categoria"
