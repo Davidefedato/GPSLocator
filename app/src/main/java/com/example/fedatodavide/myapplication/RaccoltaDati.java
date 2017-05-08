@@ -59,6 +59,7 @@ public class RaccoltaDati extends AppCompatActivity {
     private ArrayAdapter<String> spinnerAdapter3;
 
     private String s;
+    private TextView utente;
 
     private String motoQuery;
     private String circuitoQuery;
@@ -72,6 +73,8 @@ public class RaccoltaDati extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raccolta_dati);
         bottone = (Button) findViewById(R.id.salvaDati);
+        utente = (TextView) findViewById(R.id.username);
+        utente.setText("Benvenuto " + User.username + ", seleziona la moto che usi ed il circuito dove corri!");
 
 
         categoria = (Spinner) findViewById(R.id.categoria);

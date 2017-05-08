@@ -44,6 +44,7 @@ public class LocationFinder extends Activity {
     private int giro;
 
 
+
     //Dati sulla mappa
     private double mapXMin = 12.045191;
     private double mapXMax = 12.047382;
@@ -93,29 +94,29 @@ public class LocationFinder extends Activity {
         FineGiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                giro++;
+                if (iniziato == 1){
+                    giro++;
 
-                while (millisecondi > 1000) {
-                    secondi++;
-                    millisecondi = millisecondi - 1000;
+                    while (millisecondi > 1000) {
+                        secondi++;
+                        millisecondi = millisecondi - 1000;
 
-                    while (secondi > 60) {
-                        minuti++;
-                        secondi = secondi - 60;
+                        while (secondi > 60) {
+                            minuti++;
+                            secondi = secondi - 60;
+                        }
                     }
+
+
+                    tempo = minuti + " : " + secondi + " : " + millisecondi;
+                    User.tempi.add(tempo);
+
+                    Log.i("Tempo", tempo);
+
+                    millisecondi = 0;
+                    minuti = 0;
+                    secondi = 0;
                 }
-
-
-                tempo = minuti + " : " + secondi + " : " + millisecondi;
-                User.tempi.add(tempo);
-
-                Log.i("Tempo", tempo);
-
-                millisecondi = 0;
-                minuti = 0;
-                secondi = 0;
-
-
             }
         });
 
@@ -128,6 +129,7 @@ public class LocationFinder extends Activity {
                     Intent intent = new Intent(getApplicationContext(), ResoContoDati.class);
                     startActivity(intent);
                 }
+                iniziato = 0;
             }
         });
 

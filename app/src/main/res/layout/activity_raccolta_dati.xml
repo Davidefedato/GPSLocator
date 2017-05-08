@@ -15,43 +15,46 @@
         android:text="Salva dati"
         android:id="@+id/salvaDati"
         android:background="@drawable/button"
-        android:layout_below="@+id/circuito"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="59dp" />
 
     <Spinner android:layout_height="wrap_content"
         android:id="@+id/categoria"
         android:layout_width="match_parent"
+        android:foreground="#00ffffff"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:foreground="#00ffffff" />
+        android:layout_alignParentStart="true" />
 
     <Spinner android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moto"
         android:nestedScrollingEnabled="false"
-        android:layout_below="@+id/categoria"
-        android:layout_centerHorizontal="true"
         android:focusableInTouchMode="false"
-        android:foreground="#00ffffff" />
+        android:foreground="#00ffffff"
+        android:clickable="false"
+        android:layout_below="@+id/categoria"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nazione"
+        android:foreground="#00ffffff"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:foreground="#00ffffff" />
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/circuito"
+        android:foreground="#00ffffff"
         android:layout_below="@+id/nazione"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:foreground="#00ffffff" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,19 +62,32 @@
         android:text="Circuito :"
         android:id="@+id/textView3"
         android:textColor="#000"
+        android:textIsSelectable="true"
         android:layout_below="@+id/moto"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textIsSelectable="true" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Moto :"
         android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
+        android:textColor="#000"
+        android:layout_below="@+id/username"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#000" />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/categoria"
+        android:layout_alignEnd="@+id/categoria"
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:textSize="20dp" />
 
 </RelativeLayout>

@@ -26,13 +26,13 @@ public class ResoContoDati extends AppCompatActivity {
     TextView datiPilota;
     Button elimina;
     Button caricaDB;
-    int indirizzo;
+    int indirizzo = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reso_conto_dati);
-
+        Log.i("pos", String.valueOf(indirizzo));
         caricaDB = (Button) findViewById(R.id.btnCarica);
         elimina = (Button) findViewById(R.id.btnElimina);
         datiPilota = (TextView) findViewById(R.id.textView5);
@@ -45,14 +45,20 @@ public class ResoContoDati extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 indirizzo = position;
+                Log.i("pos", String.valueOf(indirizzo));
             }
         });
+
+
         elimina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("pos", String.valueOf(indirizzo));
-                User.tempi.remove(indirizzo);
-                adapter.notifyDataSetChanged();
+                if (!User.tempi.isEmpty() && indirizzo >= 0){
+                    Log.i("pos", String.valueOf(indirizzo));
+                    User.tempi.remove(indirizzo);
+                    adapter.notifyDataSetChanged();
+                }
+                indirizzo = -1;
             }
         });
 
@@ -87,7 +93,9 @@ public class ResoContoDati extends AppCompatActivity {
 
     public void onBackPressed(){
         Intent i = new Intent(getApplicationContext(), Login.class);
-        //sistemare l'indirizzo dell'oggetto da eliminare perchè anche quando torno indietro mantiene l'indirizzo in memoria e svuotare l'array dei tempi
         startActivity(i);
+        User.tempi.clear();
+        adapter.notifyDataSetChanged();
+        indirizzo = -1;
     }
 }
