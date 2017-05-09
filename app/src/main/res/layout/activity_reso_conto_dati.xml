@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RaccoltaDati$ResoContoDati"
-    android:background="@drawable/sfondo">
+    tools:context=".RaccoltaDati$ResoContoDati">
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +38,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button" />
+        android:padding="10dp"
+        android:background="@color/colorAccent" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,6 +49,7 @@
         android:layout_below="@+id/listViewTempi"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/button"/>
+        android:background="@color/colorAccent"
+        android:padding="10dp" />
 
 </RelativeLayout>
