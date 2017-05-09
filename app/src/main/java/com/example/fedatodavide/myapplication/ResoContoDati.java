@@ -58,6 +58,14 @@ public class ResoContoDati extends AppCompatActivity {
                     User.tempi.remove(indirizzo);
                     adapter.notifyDataSetChanged();
                 }
+                else{
+                    if (User.tempi.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "Non ci sono elementi da eliminare", Toast.LENGTH_LONG).show();
+                    }
+                    else if (indirizzo<0) {
+                        Toast.makeText(getApplicationContext(), "Non hai selezionato l'elemento da eliminare", Toast.LENGTH_LONG).show();
+                    }
+                }
                 indirizzo = -1;
             }
         });
@@ -65,28 +73,32 @@ public class ResoContoDati extends AppCompatActivity {
         caricaDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        //GENERA LA QUERY PER INSERIRE I DATI NEL DATABASE
-                        ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/caricaDBprova.php?idMotociclista=" + User.id + "&tempo=" + User.tempi.toString().replace(" ", "%20") + "&moto=" + User.moto.replace(" ", "%20") + "&circuito=" + User.circuito.replace(" ", "%20"));
-                        readURL.onClientMessageRead = new OnClientMessageRead() {
-                            @Override
-                            public void onMessageRead(final String message) {
-                                System.out.println("Ricevo: " + message);
-                                //CONTROLLA SE IL CARICAMENTO E' AVVENUTO CON SUCCESSO O MENO
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (message.equalsIgnoreCase("Caricamento fallito")) {
-                                            Toast.makeText(getApplicationContext(), "Caricamento fallito", Toast.LENGTH_LONG).show();
+                if (!User.tempi.isEmpty()){
+                    //GENERA LA QUERY PER INSERIRE I DATI NEL DATABASE
+                    ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/caricaDBprova.php?idMotociclista=" + User.id + "&tempo=" + User.tempi.toString().replace(" ", "%20") + "&moto=" + User.moto.replace(" ", "%20") + "&circuito=" + User.circuito.replace(" ", "%20"));
+                    readURL.onClientMessageRead = new OnClientMessageRead() {
+                        @Override
+                        public void onMessageRead(final String message) {
+                            System.out.println("Ricevo: " + message);
+                            //CONTROLLA SE IL CARICAMENTO E' AVVENUTO CON SUCCESSO O MENO
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (message.equalsIgnoreCase("Caricamento fallito")) {
+                                        Toast.makeText(getApplicationContext(), "Caricamento fallito", Toast.LENGTH_LONG).show();
 
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
-                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
                                     }
-                                });
-                            }
-                        };
-                        readURL.start();
-
+                                }
+                            });
+                        }
+                    };
+                    readURL.start();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Non ci sono valori da caricare", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
