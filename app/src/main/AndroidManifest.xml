@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".RaccoltaDati" />
         <activity android:name=".LocationFinder" />
-        <activity android:name=".ResoContoDati"></activity>
+        <activity android:name=".ResoContoDati" />
     </application>
 
 </manifest>
