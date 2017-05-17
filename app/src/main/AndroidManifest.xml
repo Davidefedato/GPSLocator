@@ -15,16 +15,16 @@
         android:label="Bike Locator"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".Login">
+        <activity android:name=".Activity.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RaccoltaDati" />
-        <activity android:name=".LocationFinder" />
-        <activity android:name=".ResoContoDati" />
+        <activity android:name=".Activity.RaccoltaDati" />
+        <activity android:name=".Activity.LocationFinder" />
+        <activity android:name=".Activity.ResoContoDati" />
     </application>
 
 </manifest>

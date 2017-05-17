@@ -1,33 +1,22 @@
-package com.example.fedatodavide.myapplication;
-
-/**
- * Created by fedatodavide on 25/03/2017.
- */
+package com.example.fedatodavide.myapplication.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
 import com.example.fedatodavide.myapplication.LogicGPSLocator.CanvasView;
 import com.example.fedatodavide.myapplication.LogicGPSLocator.MyLocation;
+import com.example.fedatodavide.myapplication.R;
 
-/**
- * Created by fedatodavide on 24/03/2017.
- */
 public class LocationFinder extends Activity {
 
+    //DICHIARAZIONE DELLE VARIABILI
     private MyLocation myLocation = new MyLocation();
-    private TextView text;
-    //private DrawTest drawTest;
     private CanvasView customCanvas;
     float PercentualeX = 0;
     float PercentualeY = 0;
@@ -37,7 +26,6 @@ public class LocationFinder extends Activity {
     Button Inizio;
     Button FineGiro;
     Button Fine;
-    Chronometer cronometro;
     Thread t;
     String tempo = "";
     private int iniziato;
@@ -45,12 +33,12 @@ public class LocationFinder extends Activity {
 
 
 
-    //Dati sulla mappa
+    //DATI RIGUARDANTI LA MAPPA DELLA SCUOLA
     private double mapXMin = 12.045191;
     private double mapXMax = 12.047382;
     private double mapYMin = 45.771859;
     private double mapYMax = 45.77048;
-    //prova
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +47,9 @@ public class LocationFinder extends Activity {
         FineGiro = (Button) findViewById(R.id.btnFineGiro);
         Fine = (Button) findViewById(R.id.btnFine);
         iniziato = 0;
-        //TEMP Thread di prova t.start();
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
+        //BOTTONE CHE AVVIA IL CRONOMETRO E LA LOCALIZZAZIONE
         Inizio.setOnClickListener(new View.OnClickListener() {
             int secondi = 0;
 
@@ -90,7 +78,7 @@ public class LocationFinder extends Activity {
             }
         });
 
-
+        //BOTTONE CHE SALVA IL TEMPO USATO PER COMPIERE UN GIRO E AZZERA IL CRONOMETRO PER RACCOGLIERE IL PROSSIMO TEMPO
         FineGiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +108,7 @@ public class LocationFinder extends Activity {
             }
         });
 
+        //BLOCCA IL CRONOMETRO DEFINITIVAMENTE E FA PARTIRE L'ACTIVITY PER LA GESTIONE DEI DATI
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +124,7 @@ public class LocationFinder extends Activity {
 
     }
 
+    //FUNZIONE CHE CALCOLA LA POSIZIONE NEL CANVAS E DISEGNA IL PUNTINO SULLA MAPPA
     private void calcolaPosizione(final double x, final double y) {
 
         runOnUiThread(new Runnable() {
@@ -143,39 +133,23 @@ public class LocationFinder extends Activity {
                 int larghezza = customCanvas.larghezza;
                 int altezza = customCanvas.altezza;
 
-                String debug = "";
-
-                debug += "Canvas: " + larghezza + ", " + altezza + "\n";
-
-                System.out.println("larghezza " + larghezza);   //540
-                System.out.println("altezza " + altezza);   //886
-
-
-                //debug += "Posizione: " + x + ", " + y + "\n";
-                //debug += "Min map: " + 45.770759 + ", " + 12.046336 + "\n";
-                //debug += "Max map: " + 45.777010 + ", " + 12.046532 + "\n";
                 double deltaMapX = Math.abs(mapXMax - mapXMin);
                 double deltaMapY = Math.abs(mapYMax - mapYMin);
 
-                //debug += "DeltaMap: " + deltaMapX + ", " + deltaMapY + "\n";
                 PercentualeX = (float) Math.abs((x - mapXMin) * 100 / deltaMapX);
                 PercentualeY = (float) Math.abs((y - mapYMin) * 100 / deltaMapY);
 
-                //debug += "Percentuale: " + PercentualeX + ", " + PercentualeY + "\n";
 
                 float toCanvasX = (PercentualeX * larghezza) / 100;
                 float toCanvasY = (PercentualeY * altezza) / 100;
 
-                //debug += "CanvasPercent: " + toCanvasX + ", " + toCanvasY;
-
-                //Toast.makeText(getApplicationContext(), "Posx : " + toCanvasX + "% Posy : " + toCanvasY + "%", Toast.LENGTH_SHORT).show();
-//                text.setText(debug);
                 //QUI dai la posizione al canvas ->
                 customCanvas.drawPoint(toCanvasX, toCanvasY);
             }
         });
     }
 
+    //AVVIO DELLA FUNZIONE CHE RECUPERA LA POSIZIONE
     public MyLocation.LocationResult locationResult = new MyLocation.LocationResult() {
 
         @Override
@@ -188,6 +162,7 @@ public class LocationFinder extends Activity {
         }
     };
 
+    //FUNZIONE CHE LANCIA SEMPRE L'ACTIVITY DI LOGIN QUANDO PREMO IL TASTO INDIETRO
     public void onBackPressed(){
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);

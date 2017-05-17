@@ -1,6 +1,5 @@
-package com.example.fedatodavide.myapplication;
+package com.example.fedatodavide.myapplication.Activity;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.fedatodavide.myapplication.LogicDatabase.DatabaseHelper;
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
+import com.example.fedatodavide.myapplication.R;
 
 import java.util.ArrayList;
 
@@ -27,11 +27,8 @@ public class RaccoltaDati extends AppCompatActivity {
     SQLiteDatabase db;
 
     Button bottone;
-    String circuito1;
-    String tempo;
     String dati;
     String stringa;
-    int i = 0;
     int correctMoto = 0;
     int correctCircuito = 0;
     String queryCat;
@@ -40,11 +37,9 @@ public class RaccoltaDati extends AppCompatActivity {
 
     private Spinner categoria;
     private Spinner moto;
+
     private Spinner nazione;
     private Spinner circuito;
-
-    String queryCategoria;
-    String categoriaSelezionata;
 
     ArrayList<String> categorie;
     ArrayList<String> elencoMoto;
@@ -66,7 +61,6 @@ public class RaccoltaDati extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //INIZIALIZZAZIONE DELLE VARIABILI
         context = getBaseContext();
         gdh = new DatabaseHelper(getBaseContext());
         db = gdh.getReadableDatabase();
@@ -100,17 +94,16 @@ public class RaccoltaDati extends AppCompatActivity {
         nazione.setAdapter(spinnerAdapter2);
         circuito.setAdapter(spinnerAdapter3);
 
+        //QUERY CHE RECUPERANO DAL DATABASE LE CATEGORIE DI MOTO E LE NAZIONI DEI CIRCUITI, PER POI IMPOSTARLE NEGLI APPOSITI SPINNER
         queryCat = "SELECT DISTINCT Categoria FROM Moto";
         queryNaz = "SELECT DISTINCT Nazione FROM Circuito";
 
         final DatabaseHelper gdh = new DatabaseHelper(getBaseContext());
-        // Gets the data repository in write mode
         SQLiteDatabase db = gdh.getReadableDatabase();
 
         Cursor c = db.rawQuery(queryCat, null);
         Cursor e = db.rawQuery(queryNaz, null);
 
-        /*Carico la lista con le classi. Se premo una classe vedo tutti i compiti salvati*/
         while (c.moveToNext()) {
             categorie.add(c.getString(0));
 
@@ -122,6 +115,7 @@ public class RaccoltaDati extends AppCompatActivity {
         }
         spinnerAdapter2.addAll(nazioni);
 
+        //SPINNER DELLA CATEGORIA
         categoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -155,6 +149,7 @@ public class RaccoltaDati extends AppCompatActivity {
 
         });
 
+        //SPINNER DELLA MOTO
         moto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -175,6 +170,7 @@ public class RaccoltaDati extends AppCompatActivity {
         db.close();
 
 
+        //SPINNER DELLA NAZIONE
         nazione.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -208,6 +204,7 @@ public class RaccoltaDati extends AppCompatActivity {
 
         });
 
+        //SPINNER DEL CIRCUITO
         circuito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -227,27 +224,23 @@ public class RaccoltaDati extends AppCompatActivity {
 
         db.close();
 
-        //BOTTONE PER CARICARE I DATI
+        //BOTTONE PER SALVARE I DATI RELATIVI ALLA MOTO ED AL CIRCUITO PER POI FARE EVENTUALMENTE IL CARICAMENTO SUL DATABASE
         bottone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = User.id;
                 User.circuito = circuitoQuery;
                 User.moto = motoQuery;
-                //if (!User.circuito.equalsIgnoreCase("--Scegli--") && !User.moto.equalsIgnoreCase("--Scegli--")){
-                if (User.circuito !=null && User.moto != null){
-                    System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
-                    Intent i = new Intent(getApplicationContext(), LocationFinder.class);
-                    startActivity(i);
-                }
-                else {
-
-                }
-
+                    if (User.circuito !=null && User.moto != null){
+                        System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
+                        Intent i = new Intent(getApplicationContext(), LocationFinder.class);
+                        startActivity(i);
+                    }
             }
         });
-
     }
+
+    //FUNZIONE CHE LANCIA SEMPRE L'ACTIVITY DI LOGIN QUANDO PREMO IL TASTO INDIETRO
     public void onBackPressed(){
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);
@@ -255,7 +248,6 @@ public class RaccoltaDati extends AppCompatActivity {
 
 
     public static class ResoContoDati extends AppCompatActivity {
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

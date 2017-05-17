@@ -1,7 +1,6 @@
-package com.example.fedatodavide.myapplication;
+package com.example.fedatodavide.myapplication.Activity;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,14 +15,13 @@ import android.widget.Toast;
 import com.example.fedatodavide.myapplication.LogicDatabase.OnClientMessageRead;
 import com.example.fedatodavide.myapplication.LogicDatabase.ReadURL;
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
-
-import java.util.ArrayList;
+import com.example.fedatodavide.myapplication.R;
 
 public class ResoContoDati extends AppCompatActivity {
 
+    //DICHIARAZIONE DELLE VARIABILI
     ListView lista;
     ArrayAdapter<String> adapter;
-    ArrayList<String> tempi;
     TextView datiPilota;
     Button elimina;
     Button caricaDB;
@@ -42,6 +40,7 @@ public class ResoContoDati extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, User.tempi);
         lista.setAdapter(adapter);
 
+        //METODO CHE PERMETTE DI RICAVARE L'INDIRIZZO DELL'ELEMENTO PREMUTO SULLA LISTA
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -51,11 +50,11 @@ public class ResoContoDati extends AppCompatActivity {
         });
 
 
+        //QUANDO PREMUTO ELIMINA L'ELEMENTO SELEZIONATO DELLA LISTA
         elimina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!User.tempi.isEmpty() && indirizzo >= 0){
-                    Log.i("pos", String.valueOf(indirizzo));
                     User.tempi.remove(indirizzo);
                     adapter.notifyDataSetChanged();
                 }
@@ -71,6 +70,7 @@ public class ResoContoDati extends AppCompatActivity {
             }
         });
 
+        //BOTTONE PER EFFETTUARE IL CARICAMENTO DEI DATI SUL DATABASE
         caricaDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +81,7 @@ public class ResoContoDati extends AppCompatActivity {
                         @Override
                         public void onMessageRead(final String message) {
                             System.out.println("Ricevo: " + message);
-                            //CONTROLLA SE IL CARICAMENTO E' AVVENUTO CON SUCCESSO O MENO
+                            //CONTROLLA SE IL CARICAMENTO E' AVVENUTO CON SUCCESSO O NO
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -104,6 +104,7 @@ public class ResoContoDati extends AppCompatActivity {
         });
     }
 
+    //FUNZIONE CHE LANCIA SEMPRE L'ACTIVITY DI LOGIN QUANDO PREMO IL TASTO INDIETRO
     public void onBackPressed(){
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);

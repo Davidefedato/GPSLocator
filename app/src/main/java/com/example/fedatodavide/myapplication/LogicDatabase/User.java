@@ -2,9 +2,6 @@ package com.example.fedatodavide.myapplication.LogicDatabase;
 
 import java.util.ArrayList;
 
-/**
- * Created by fedatodavide on 11/02/2017.
- */
 public class User {
     public static int id;
     public static String username;

@@ -1,24 +1,21 @@
-package com.example.fedatodavide.myapplication;
+package com.example.fedatodavide.myapplication.Activity;
 
 import android.content.Intent;
-import android.provider.Settings;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.fedatodavide.myapplication.LogicDatabase.OnClientMessageRead;
 import com.example.fedatodavide.myapplication.LogicDatabase.ReadURL;
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
+import com.example.fedatodavide.myapplication.R;
 
 public class Login extends AppCompatActivity {
 
-
+    //DICHIARAZIONE DELLE VERIABILI
     Button registra;
     Button accedi;
     EditText username;
@@ -27,6 +24,7 @@ public class Login extends AppCompatActivity {
     String p;
     int id=0;
     int i=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +35,7 @@ public class Login extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
+        //BOTTONE PER REGISTRARSI
         registra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +81,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //BOTTONE PER EFFETTUARE IL LOGIN
         accedi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,6 @@ public class Login extends AppCompatActivity {
                                     User.id = id;
                                     Toast.makeText(getApplicationContext(),"Log in avvenuto con successo", Toast.LENGTH_LONG).show();
                                     User.username = u;
-                                    //fai partire un'activity
                                     Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
                                     startActivity(intent);
                                 }

@@ -5,7 +5,6 @@ public class Moto {
     public String marca;
     public String modello;
     public int cilindrata;
-    //FINE DICHIARAZIONI VARIABILI
 
 
     //METODI GETTERS E SETTERS
@@ -33,6 +32,5 @@ public class Moto {
     public void setCilindrata(int cilindrata) {
         this.cilindrata = cilindrata;
     }
-    //FINE GETTERS E SETTERS
 
 }
