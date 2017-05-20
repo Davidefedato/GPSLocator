@@ -17,6 +17,8 @@ import com.example.fedatodavide.myapplication.LogicDatabase.ReadURL;
 import com.example.fedatodavide.myapplication.LogicDatabase.User;
 import com.example.fedatodavide.myapplication.R;
 
+import static com.example.fedatodavide.myapplication.R.layout.activity_reso_conto_dati;
+
 public class ResoContoDati extends AppCompatActivity {
 
     //DICHIARAZIONE DELLE VARIABILI
@@ -30,7 +32,7 @@ public class ResoContoDati extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reso_conto_dati);
+        setContentView(activity_reso_conto_dati);
         Log.i("pos", String.valueOf(indirizzo));
         caricaDB = (Button) findViewById(R.id.btnCarica);
         elimina = (Button) findViewById(R.id.btnElimina);
@@ -40,12 +42,12 @@ public class ResoContoDati extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, User.tempi);
         lista.setAdapter(adapter);
 
+
         //METODO CHE PERMETTE DI RICAVARE L'INDIRIZZO DELL'ELEMENTO PREMUTO SULLA LISTA
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 indirizzo = position;
-                Log.i("pos", String.valueOf(indirizzo));
             }
         });
 

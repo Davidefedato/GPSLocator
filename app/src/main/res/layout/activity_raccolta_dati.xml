@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,13 +20,14 @@
         android:layout_marginBottom="59dp"
         android:padding="10dp" />
 
-    <Spinner android:layout_height="wrap_content"
+    <Spinner
         android:id="@+id/categoria"
-        android:layout_width="match_parent"
-        android:foreground="#00ffffff"
-        android:layout_below="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:foreground="#00ffffff" />
 
     <Spinner android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,16 +80,23 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/categoria"
-        android:layout_alignEnd="@+id/categoria"
         android:textColor="#000"
-        android:textStyle="italic"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/circuito"
+        android:layout_below="@+id/username"
+        android:layout_toEndOf="@+id/salvaDati"
+        android:layout_toRightOf="@+id/salvaDati" />
 
 </RelativeLayout>

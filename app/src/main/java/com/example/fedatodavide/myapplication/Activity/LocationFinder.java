@@ -43,19 +43,20 @@ public class LocationFinder extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_finder);
+
+        //INIZIALIZZAZIONE DELLE VARIABILI
         Inizio = (Button) findViewById(R.id.btnInizio);
         FineGiro = (Button) findViewById(R.id.btnFineGiro);
         Fine = (Button) findViewById(R.id.btnFine);
         iniziato = 0;
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
+        //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
 
         //BOTTONE CHE AVVIA IL CRONOMETRO E LA LOCALIZZAZIONE
         Inizio.setOnClickListener(new View.OnClickListener() {
             int secondi = 0;
-
             @Override
             public void onClick(View v) {
-
                 millisecondi = 0;
                 minuti = 0;
                 secondi = 0;

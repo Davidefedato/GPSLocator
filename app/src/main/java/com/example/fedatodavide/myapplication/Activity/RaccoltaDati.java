@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import com.example.fedatodavide.myapplication.LogicDatabase.User;
 import com.example.fedatodavide.myapplication.R;
 
 import java.util.ArrayList;
+
+import static com.example.fedatodavide.myapplication.R.mipmap.icona;
 
 public class RaccoltaDati extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class RaccoltaDati extends AppCompatActivity {
     int correctCircuito = 0;
     String queryCat;
     String queryNaz;
+    ImageView immagine;
 
 
     private Spinner categoria;
@@ -64,6 +68,7 @@ public class RaccoltaDati extends AppCompatActivity {
         context = getBaseContext();
         gdh = new DatabaseHelper(getBaseContext());
         db = gdh.getReadableDatabase();
+        immagine = (ImageView) findViewById(R.id.imageView);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raccolta_dati);
         bottone = (Button) findViewById(R.id.salvaDati);
@@ -156,6 +161,8 @@ public class RaccoltaDati extends AppCompatActivity {
                                        int arg2, long arg3) {
                 TextView txt = (TextView) arg1.findViewById(R.id.rowtext);
                 s = txt.getText().toString();
+                immagine.setBackground();
+                immagine.setImageBitmap();
                 if (s != "--Scegli--") {
                     motoQuery = s;
                 }
