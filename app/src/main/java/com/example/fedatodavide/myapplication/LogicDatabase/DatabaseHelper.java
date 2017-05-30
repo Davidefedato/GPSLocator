@@ -13,13 +13,12 @@ import java.io.InputStreamReader;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    // If you change the database schema, you must increment the database version.
+
+    //DICHIARAZIONE ED EVENTUALE INIZIALIZZAZIONE DELLE VARIABILI
     public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "fedato.db";
-
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
-
     private Context context;
 
     public DatabaseHelper(Context context) {
@@ -27,8 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    //Creo tutte le tabelle
 
+    //VENGONO CREATE TUTTE LE TABELLE
     public void onCreate(SQLiteDatabase db) {
         Log.d("d",DatabaseContract.LevelEntry.SQL_CREATE);
         Log.d("d",DatabaseContract.LevelEntry1.SQL_CREATE1);
@@ -36,11 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DatabaseContract.LevelEntry.SQL_CREATE);
         db.execSQL(DatabaseContract.LevelEntry1.SQL_CREATE1);
 
-        // Aggiungo i dati standard nel database caricandoli da file
+        //AGGIUNGO I DATI STANDARD NEL DATABASE CARICANDOLI DAL FILE DATA.SQL
         BufferedReader br = null;
         try {
             AssetManager asManager = context.getAssets();
-            br = new BufferedReader(new InputStreamReader(asManager.open("data.sql")), 1024 * 4);//mettere nome file corretto
+            br = new BufferedReader(new InputStreamReader(asManager.open("data.sql")), 1024 * 4);
             String line = null;
             db.beginTransaction();
             while ((line = br.readLine()) != null) {
@@ -64,15 +63,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //FUNZIONE PER L'UPDRADE DEL DATABASE
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
         Log.d("dbUpgrade", "Upgrading db");
         db.execSQL(DatabaseContract.LevelEntry.SQL_DROPTABLE);
         db.execSQL(DatabaseContract.LevelEntry1.SQL_DROPTABLE1);
         onCreate(db);
     }
 
+    //FUNZIONE PER IL DOWNGRADE DEL DATABASE
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }

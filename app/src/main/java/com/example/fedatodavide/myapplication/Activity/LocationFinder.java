@@ -15,7 +15,7 @@ import com.example.fedatodavide.myapplication.R;
 
 public class LocationFinder extends Activity {
 
-    //DICHIARAZIONE DELLE VARIABILI
+    //DICHIARAZIONE ED EVENTUALE INIZIALIZZAZIONE DELLE VARIABILI
     private MyLocation myLocation = new MyLocation();
     private CanvasView customCanvas;
     float PercentualeX = 0;
@@ -32,7 +32,6 @@ public class LocationFinder extends Activity {
     private int giro;
 
 
-
     //DATI RIGUARDANTI LA MAPPA DELLA SCUOLA
     private double mapXMin = 12.045191;
     private double mapXMax = 12.047382;
@@ -45,16 +44,21 @@ public class LocationFinder extends Activity {
         setContentView(R.layout.location_finder);
 
         //INIZIALIZZAZIONE DELLE VARIABILI
+        iniziato = 0;
+
+        //PRENDO IL RIFERIMENTO DELL'OGGETTO GRAFICO GIA' PRECEDENTEMENTE CREATO
         Inizio = (Button) findViewById(R.id.btnInizio);
         FineGiro = (Button) findViewById(R.id.btnFineGiro);
         Fine = (Button) findViewById(R.id.btnFine);
-        iniziato = 0;
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
-        //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));//cambia sfondo canvas
+
+        //COMANDO PER CAMBIARE SFONDO IN BASE AL CIRCUITO IN CUI SI CORRE, ADESSO E' BLOCCATO POICHE' DEVO RILEVARE LA POSIZIONE NELLA MAPPA DELLA SCUOLA
+        //customCanvas.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.casa));
 
         //BOTTONE CHE AVVIA IL CRONOMETRO E LA LOCALIZZAZIONE
         Inizio.setOnClickListener(new View.OnClickListener() {
             int secondi = 0;
+
             @Override
             public void onClick(View v) {
                 millisecondi = 0;
@@ -83,7 +87,7 @@ public class LocationFinder extends Activity {
         FineGiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (iniziato == 1){
+                if (iniziato == 1) {
                     giro++;
 
                     while (millisecondi > 1000) {
@@ -113,7 +117,7 @@ public class LocationFinder extends Activity {
         Fine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (iniziato == 1 && giro!= 0){
+                if (iniziato == 1 && giro != 0) {
                     myLocation.stopListening();
                     t.interrupt();
                     Intent intent = new Intent(getApplicationContext(), ResoContoDati.class);
@@ -144,7 +148,6 @@ public class LocationFinder extends Activity {
                 float toCanvasX = (PercentualeX * larghezza) / 100;
                 float toCanvasY = (PercentualeY * altezza) / 100;
 
-                //QUI dai la posizione al canvas ->
                 customCanvas.drawPoint(toCanvasX, toCanvasY);
             }
         });
@@ -164,7 +167,7 @@ public class LocationFinder extends Activity {
     };
 
     //FUNZIONE CHE LANCIA SEMPRE L'ACTIVITY DI LOGIN QUANDO PREMO IL TASTO INDIETRO
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);
     }

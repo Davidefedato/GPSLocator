@@ -15,38 +15,39 @@ import com.example.fedatodavide.myapplication.R;
 
 public class Login extends AppCompatActivity {
 
-    //DICHIARAZIONE DELLE VERIABILI
+    //DICHIARAZIONE ED EVENTUALE INIZIALIZZAZIONE DELLE VARIABILI
     Button registra;
     Button accedi;
     EditText username;
     EditText password;
     String u;
     String p;
-    int id=0;
-    int i=0;
+    int id = 0;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //PRENDO IL RIFERIMENTO DELL'OGGETTO GRAFICO GIA' PRECEDENTEMENTE CREATO
         registra = (Button) findViewById(R.id.registra);
         accedi = (Button) findViewById(R.id.accedi);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
-        //BOTTONE PER REGISTRARSI
+        //BOTTONE PER EFFETTUARE LA REGISTRAZIONE
         registra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 u = username.getText().toString();
                 p = password.getText().toString();
-                if (u.equalsIgnoreCase("") || p.equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Mancano i campi obbligatori", Toast.LENGTH_LONG).show();
+                if (u.equalsIgnoreCase("") || p.equalsIgnoreCase("")) {
+                    Toast.makeText(getApplicationContext(), "Mancano i campi obbligatori", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/signin.php?username="+ u +"&password="+ p);
+                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/signin.php?username=" + u + "&password=" + p);
                 readURL.onClientMessageRead = new OnClientMessageRead() {
                     @Override
                     public void onMessageRead(final String message) {
@@ -56,20 +57,18 @@ public class Login extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (message.equalsIgnoreCase("utente già registrato")){
-                                    Toast.makeText(getApplicationContext(),"L'utente esiste già", Toast.LENGTH_LONG).show();
-                                }
-                                else if (message.equalsIgnoreCase("fallito") || message.equalsIgnoreCase("mancano i dati")){
-                                    Toast.makeText(getApplicationContext(),"Registrazione fallita", Toast.LENGTH_LONG).show();
-                                }
-                                else {
+                                if (message.equalsIgnoreCase("utente già registrato")) {
+                                    Toast.makeText(getApplicationContext(), "L'utente esiste già", Toast.LENGTH_LONG).show();
+                                } else if (message.equalsIgnoreCase("fallito") || message.equalsIgnoreCase("mancano i dati")) {
+                                    Toast.makeText(getApplicationContext(), "Registrazione fallita", Toast.LENGTH_LONG).show();
+                                } else {
                                     id = Integer.parseInt(message.toString());
                                     User.id = id;
                                     System.out.println("USER ID : " + User.id);
-                                    Toast.makeText(getApplicationContext(),"Registrazione avvenuta con successo", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Registrazione avvenuta con successo", Toast.LENGTH_LONG).show();
                                     User.username = u;
                                     //fai partire un'activity
-                                    Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
+                                    Intent intent = new Intent(getApplicationContext(), RaccoltaDati.class);
                                     startActivity(intent);
                                 }
 
@@ -88,12 +87,12 @@ public class Login extends AppCompatActivity {
                 u = username.getText().toString();
                 p = password.getText().toString();
 
-                if (u.equalsIgnoreCase("") || p.equalsIgnoreCase("")){
-                    Toast.makeText(getApplicationContext(),"Mancano i campi obbligatori", Toast.LENGTH_LONG).show();
+                if (u.equalsIgnoreCase("") || p.equalsIgnoreCase("")) {
+                    Toast.makeText(getApplicationContext(), "Mancano i campi obbligatori", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/login.php?username="+ u +"&password="+ p);
+                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/login.php?username=" + u + "&password=" + p);
                 readURL.onClientMessageRead = new OnClientMessageRead() {
                     @Override
                     public void onMessageRead(final String message) {
@@ -101,15 +100,14 @@ public class Login extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (message.equalsIgnoreCase("Log in fallito")){
-                                    Toast.makeText(getApplicationContext(),"L'utente non esiste", Toast.LENGTH_LONG).show();
-                                }
-                                else {
+                                if (message.equalsIgnoreCase("Log in fallito")) {
+                                    Toast.makeText(getApplicationContext(), "L'utente non esiste", Toast.LENGTH_LONG).show();
+                                } else {
                                     id = Integer.parseInt(message.toString());
                                     User.id = id;
-                                    Toast.makeText(getApplicationContext(),"Log in avvenuto con successo", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Log in avvenuto con successo", Toast.LENGTH_LONG).show();
                                     User.username = u;
-                                    Intent intent = new Intent(getApplicationContext(),RaccoltaDati.class);
+                                    Intent intent = new Intent(getApplicationContext(), RaccoltaDati.class);
                                     startActivity(intent);
                                 }
                             }

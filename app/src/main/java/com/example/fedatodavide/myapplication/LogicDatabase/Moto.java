@@ -28,7 +28,6 @@ public class Moto {
         this.modello = modello;
     }
 
-
     public void setCilindrata(int cilindrata) {
         this.cilindrata = cilindrata;
     }

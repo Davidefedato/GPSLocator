@@ -24,11 +24,10 @@ import static com.example.fedatodavide.myapplication.R.mipmap.icona;
 
 public class RaccoltaDati extends AppCompatActivity {
 
-    //DICHIARAZIONE DELLE VARIABILI
+    //DICHIARAZIONE ED EVENTUALE INIZIALIZZAZIONE DELLE VARIABILI
     private Context context;
     private DatabaseHelper gdh;
     SQLiteDatabase db;
-
     Button bottone;
     String dati;
     String stringa;
@@ -65,25 +64,18 @@ public class RaccoltaDati extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //ISTANZIO LE CLASSI PER POI POTERNE RICHIAMARE I METODI
         context = getBaseContext();
         gdh = new DatabaseHelper(getBaseContext());
         db = gdh.getReadableDatabase();
+        
+        //PRENDO IL RIFERIMENTO DELL'OGGETTO GRAFICO GIA' PRECEDENTEMENTE CREATO
         immagine = (ImageView) findViewById(R.id.imageView);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raccolta_dati);
         bottone = (Button) findViewById(R.id.salvaDati);
         utente = (TextView) findViewById(R.id.username);
-        utente.setText("Benvenuto " + User.username + ", seleziona la moto che usi ed il circuito dove corri!");
-
-
-        categoria = (Spinner) findViewById(R.id.categoria);
-        moto = (Spinner) findViewById(R.id.moto);
-
-        nazione = (Spinner) findViewById(R.id.nazione);
-        circuito = (Spinner) findViewById(R.id.circuito);
-
-        categorie = new ArrayList<String>();
-        nazioni = new ArrayList<String>();
 
         spinnerAdapter = new ArrayAdapter<String>(this, R.layout.row);
         spinnerAdapter1 = new ArrayAdapter<String>(this, R.layout.row);
@@ -91,11 +83,22 @@ public class RaccoltaDati extends AppCompatActivity {
         spinnerAdapter2 = new ArrayAdapter<String>(this, R.layout.row);
         spinnerAdapter3 = new ArrayAdapter<String>(this, R.layout.row);
 
+        categoria = (Spinner) findViewById(R.id.categoria);
+        moto = (Spinner) findViewById(R.id.moto);
 
+        nazione = (Spinner) findViewById(R.id.nazione);
+        circuito = (Spinner) findViewById(R.id.circuito);
 
+        //IMPOSTO IL TESTO DELLA TEXTVIEW
+        utente.setText("Benvenuto " + User.username + ", seleziona la moto che usi ed il circuito dove corri!");
+
+        //INSTANZIO GLI ARRAYLIST
+        categorie = new ArrayList<String>();
+        nazioni = new ArrayList<String>();
+
+        //IMPOSTO GLI ADAPTER PER OGNI SINGOLO SPINNER IN MODO DA CARICARE AL LORO INTERNO GLI ARRAY DI DATI
         categoria.setAdapter(spinnerAdapter);
         moto.setAdapter(spinnerAdapter1);
-
         nazione.setAdapter(spinnerAdapter2);
         circuito.setAdapter(spinnerAdapter3);
 
@@ -103,21 +106,21 @@ public class RaccoltaDati extends AppCompatActivity {
         queryCat = "SELECT DISTINCT Categoria FROM Moto";
         queryNaz = "SELECT DISTINCT Nazione FROM Circuito";
 
-        final DatabaseHelper gdh = new DatabaseHelper(getBaseContext());
-        SQLiteDatabase db = gdh.getReadableDatabase();
-
+        //CURSORI CHE LEGGONO I DATI DAL FILE DATA.SQL
         Cursor c = db.rawQuery(queryCat, null);
         Cursor e = db.rawQuery(queryNaz, null);
 
+        //AGGIUNTA DEI DATI LETTI DAI CURSORI NEGLI APPOSITI ARRAYLIST
         while (c.moveToNext()) {
             categorie.add(c.getString(0));
-
         }
-        spinnerAdapter.addAll(categorie);
 
         while (e.moveToNext()) {
             nazioni.add(e.getString(0));
         }
+
+        //RIEMPIO GLI SPINNER CON I DATI SALVATI NEGLI ARRAYLIST
+        spinnerAdapter.addAll(categorie);
         spinnerAdapter2.addAll(nazioni);
 
         //SPINNER DELLA CATEGORIA
@@ -161,8 +164,6 @@ public class RaccoltaDati extends AppCompatActivity {
                                        int arg2, long arg3) {
                 TextView txt = (TextView) arg1.findViewById(R.id.rowtext);
                 s = txt.getText().toString();
-                immagine.setBackground();
-                immagine.setImageBitmap();
                 if (s != "--Scegli--") {
                     motoQuery = s;
                 }
@@ -238,27 +239,19 @@ public class RaccoltaDati extends AppCompatActivity {
                 int id = User.id;
                 User.circuito = circuitoQuery;
                 User.moto = motoQuery;
-                    if (User.circuito !=null && User.moto != null){
-                        System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
-                        Intent i = new Intent(getApplicationContext(), LocationFinder.class);
-                        startActivity(i);
-                    }
+                if (User.circuito != null && User.moto != null) {
+                    System.out.println("ID: " + id + "MOTO: " + User.moto + "CIRCUITO: " + User.circuito);
+                    Intent i = new Intent(getApplicationContext(), LocationFinder.class);
+                    startActivity(i);
+                }
             }
         });
     }
 
     //FUNZIONE CHE LANCIA SEMPRE L'ACTIVITY DI LOGIN QUANDO PREMO IL TASTO INDIETRO
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);
     }
 
-
-    public static class ResoContoDati extends AppCompatActivity {
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_reso_conto_dati);
-        }
-    }
 }
