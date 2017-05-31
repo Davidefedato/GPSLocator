@@ -7,16 +7,11 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
-/**
- * Created by fedatodavide on 27/03/2017.
- */
-
 
 public class CanvasView extends SurfaceView {
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    //D
     private final int POINT_RADIUS = 5;
     private int pointColor = Color.RED;
     private float dx;

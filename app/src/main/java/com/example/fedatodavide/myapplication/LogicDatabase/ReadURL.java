@@ -10,20 +10,18 @@ public class ReadURL extends Thread {
     public OnClientMessageRead onClientMessageRead;
     private String indirizzo;
 
-    public ReadURL(String indirizzo){
+    public ReadURL(String indirizzo) {
         this.indirizzo = indirizzo;
-        System.out.println("ReadURL: indirizzo impostato a: " + indirizzo);
     }
 
-    public void run(){
-        System.out.println("Inizo la connessione");
+    public void run() {
         try {
             URL pagina = new URL(indirizzo);
             BufferedReader in = new BufferedReader(new InputStreamReader(pagina.openStream()));
 
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                if(onClientMessageRead != null)
+                if (onClientMessageRead != null)
                     onClientMessageRead.onMessageRead(inputLine);
             }
             in.close();
