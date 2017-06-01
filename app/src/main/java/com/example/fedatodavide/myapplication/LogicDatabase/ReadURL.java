@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+//CLASSE CHE LEGGE I DATI DI UNA DETERMINATA PAGINA WEB
 public class ReadURL extends Thread {
 
     public OnClientMessageRead onClientMessageRead;
