@@ -15,7 +15,9 @@
         android:label="Motorbike Locator"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".Activity.LogoIniziale">
+        <activity android:name=".Activity.LogoIniziale"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
