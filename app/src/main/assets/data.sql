@@ -30,8 +30,20 @@ INSERT INTO Moto (Marca,Modello,Cilindrata,Categoria) VALUES ("BMW","S RR",1000,
 INSERT INTO Moto (Marca,Modello,Cilindrata,Categoria) VALUES ("BMW","S XR",1000,"Multiroad");
 INSERT INTO Moto (Marca,Modello,Cilindrata,Categoria) VALUES ("Cagiva","Mito",125,"Stradale");
 INSERT INTO Moto (Marca,Modello,Cilindrata,Categoria) VALUES ("Cagiva","Raptor",125,"Naked");
-INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Mugello","Italia",4000);
-INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Imola","Italia",4800);
-INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Laguna Seca","Stati Uniti",4500);
-INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Ciao","Stati Uniti",7000);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Adria Raceway","Italia",2072);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Circuito Del Sele","Italia",1360);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Franciacorta","Italia",1501);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Imola","Italia",4933);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Misano","Italia",4180);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Monza","Italia",5793);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Mugello","Italia",5245);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Vallelunga","Italia",4110);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Losail","Quatar",5380);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Jerez","Spagna",4423);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Estoril","Portogallo",4182);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Le Mans","Francia",4180);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Catalunya","Spagna",4655);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Assen","Olanda",4555);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Laguna Seca","Stati Uniti",3610);
+INSERT INTO Circuito (Nome,Nazione,Lunghezza) VALUES ("Philip Island","Australia",4448);
 
